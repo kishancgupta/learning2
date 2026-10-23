@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f7fb">
-  <title>GCD Calculators</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%235369c5'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-family='sans-serif' font-size='68' font-weight='700' fill='white'%3Eg%3C/text%3E%3C/svg%3E">
+  <title>Integer Math Calculators</title>
   <style>
     :root {
       color-scheme: light;
@@ -60,6 +61,19 @@
       border-radius: 20px;
       background: #fff;
       box-shadow: 0 18px 50px rgb(31 49 92 / 9%);
+    }
+
+    .lcm-card, .multiply-card { margin-top: 22px; }
+    .card-heading {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      letter-spacing: -.02em;
+    }
+    .card-intro {
+      margin: 0 0 22px;
+      color: #647089;
+      font-size: .92rem;
+      line-height: 1.5;
     }
 
     .inputs {
@@ -221,11 +235,13 @@
 </head>
 <body>
   <main>
-    <p class="eyebrow">Euclidean algorithm</p>
-    <h1>GCD Calculator</h1>
-    <p class="intro">Find the greatest common divisor of two integers and follow each step of the calculation.</p>
+    <p class="eyebrow">Integer math</p>
+    <h1>Integer Calculators</h1>
+    <p class="intro">Calculate the greatest common divisor, least common multiple, or product of two integers.</p>
 
-    <section class="card" aria-label="Greatest common divisor calculator">
+    <section class="card" aria-labelledby="gcd-heading">
+      <h2 class="card-heading" id="gcd-heading">Greatest common divisor (GCD)</h2>
+      <p class="card-intro">Find the largest positive integer that divides both values.</p>
       <form id="gcd-form" novalidate>
         <div class="inputs">
           <div>
@@ -263,7 +279,89 @@
         <button type="button" data-a="0" data-b="42">0 and 42</button>
       </div>
     </section>
-    <p class="note">Accepts positive, negative, and zero integers of any size. By convention, gcd(0, 0) is 0.</p>
+
+    <section class="card lcm-card" aria-labelledby="lcm-heading">
+      <h2 class="card-heading" id="lcm-heading">Least common multiple (LCM)</h2>
+      <p class="card-intro">Find the smallest non-negative integer that is a multiple of both values.</p>
+      <form id="lcm-form" novalidate>
+        <div class="inputs">
+          <div>
+            <label for="lcm-number-a">First integer</label>
+            <input id="lcm-number-a" name="lcm-number-a" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 12" aria-describedby="lcm-input-message">
+          </div>
+          <span class="and" aria-hidden="true">and</span>
+          <div>
+            <label for="lcm-number-b">Second integer</label>
+            <input id="lcm-number-b" name="lcm-number-b" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 18" aria-describedby="lcm-input-message">
+          </div>
+        </div>
+        <p class="message" id="lcm-input-message" role="alert" aria-live="polite"></p>
+        <div class="actions">
+          <button type="submit">Find the LCM</button>
+          <button class="secondary" id="lcm-clear-button" type="button">Clear</button>
+        </div>
+      </form>
+
+      <section class="result" id="lcm-result" aria-live="polite" aria-atomic="true">
+        <p class="result-label">Least common multiple</p>
+        <p class="answer" id="lcm-answer"></p>
+        <details open>
+          <summary>Calculation steps</summary>
+          <ol class="steps" id="lcm-steps"></ol>
+        </details>
+      </section>
+
+      <div class="examples">
+        <strong>Try an example:</strong>
+        <button type="button" data-lcm-a="12" data-lcm-b="18">12 and 18</button>
+        ·
+        <button type="button" data-lcm-a="7" data-lcm-b="5">7 and 5</button>
+        ·
+        <button type="button" data-lcm-a="0" data-lcm-b="42">0 and 42</button>
+      </div>
+    </section>
+
+    <section class="card multiply-card" aria-labelledby="multiply-heading">
+      <h2 class="card-heading" id="multiply-heading">Multiply two integers</h2>
+      <p class="card-intro">Multiply positive, negative, or zero integers and see the equation.</p>
+      <form id="multiply-form" novalidate>
+        <div class="inputs">
+          <div>
+            <label for="multiply-number-a">First integer</label>
+            <input id="multiply-number-a" name="multiply-number-a" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 24" aria-describedby="multiply-input-message">
+          </div>
+          <span class="and" aria-hidden="true">×</span>
+          <div>
+            <label for="multiply-number-b">Second integer</label>
+            <input id="multiply-number-b" name="multiply-number-b" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. -6" aria-describedby="multiply-input-message">
+          </div>
+        </div>
+        <p class="message" id="multiply-input-message" role="alert" aria-live="polite"></p>
+        <div class="actions">
+          <button type="submit">Multiply</button>
+          <button class="secondary" id="multiply-clear-button" type="button">Clear</button>
+        </div>
+      </form>
+
+      <section class="result" id="multiply-result" aria-live="polite" aria-atomic="true">
+        <p class="result-label">Product</p>
+        <p class="answer" id="multiply-answer"></p>
+        <details open>
+          <summary>Calculation</summary>
+          <ol class="steps" id="multiply-steps"></ol>
+        </details>
+      </section>
+
+      <div class="examples">
+        <strong>Try an example:</strong>
+        <button type="button" data-multiply-a="24" data-multiply-b="-6">24 and -6</button>
+        ·
+        <button type="button" data-multiply-a="125" data-multiply-b="8">125 and 8</button>
+        ·
+        <button type="button" data-multiply-a="0" data-multiply-b="42">0 and 42</button>
+      </div>
+    </section>
+    <p class="note">Accepts positive, negative, and zero integers of any size. By convention, gcd(0, 0) is 0 and the LCM is 0 if either value is 0.</p>
   </main>
 
   <script>
@@ -276,6 +374,20 @@
     const result = document.querySelector("#result");
     const answer = document.querySelector("#answer");
     const steps = document.querySelector("#steps");
+    const lcmForm = document.querySelector("#lcm-form");
+    const lcmInputA = document.querySelector("#lcm-number-a");
+    const lcmInputB = document.querySelector("#lcm-number-b");
+    const lcmMessage = document.querySelector("#lcm-input-message");
+    const lcmResult = document.querySelector("#lcm-result");
+    const lcmAnswer = document.querySelector("#lcm-answer");
+    const lcmSteps = document.querySelector("#lcm-steps");
+    const multiplyForm = document.querySelector("#multiply-form");
+    const multiplyInputA = document.querySelector("#multiply-number-a");
+    const multiplyInputB = document.querySelector("#multiply-number-b");
+    const multiplyMessage = document.querySelector("#multiply-input-message");
+    const multiplyResult = document.querySelector("#multiply-result");
+    const multiplyAnswer = document.querySelector("#multiply-answer");
+    const multiplySteps = document.querySelector("#multiply-steps");
 
     function gcdWithSteps(first, second) {
       let a = first < 0n ? -first : first;
@@ -305,6 +417,30 @@
       return BigInt(value);
     }
 
+    function lcmWithSteps(first, second) {
+      const gcdCalculation = gcdWithSteps(first, second);
+      if (first === 0n || second === 0n) {
+        return {
+          lcm: 0n,
+          calculations: [
+            ...gcdCalculation.calculations,
+            `Since one of the values is 0, lcm(${first}, ${second}) = 0.`
+          ]
+        };
+      }
+
+      const lcm = (first / gcdCalculation.gcd) * second;
+      const positiveLcm = lcm < 0n ? -lcm : lcm;
+      return {
+        lcm: positiveLcm,
+        calculations: [
+          ...gcdCalculation.calculations,
+          `lcm(a, b) = |a ÷ gcd(a, b) × b|`,
+          `lcm(${first}, ${second}) = |${first} ÷ ${gcdCalculation.gcd} × ${second}| = ${positiveLcm}`
+        ]
+      };
+    }
+
     function calculate(first, second) {
       const calculation = gcdWithSteps(first, second);
       answer.textContent = calculation.gcd.toString();
@@ -327,6 +463,44 @@
       }
     });
 
+    lcmForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      lcmResult.classList.remove("visible");
+      try {
+        const first = parseInteger(lcmInputA.value, "First value");
+        const second = parseInteger(lcmInputB.value, "Second value");
+        const calculation = lcmWithSteps(first, second);
+        lcmAnswer.textContent = calculation.lcm.toString();
+        lcmSteps.replaceChildren(...calculation.calculations.map((line) => {
+          const item = document.createElement("li");
+          item.textContent = line;
+          return item;
+        }));
+        lcmResult.classList.add("visible");
+        lcmMessage.textContent = "";
+      } catch (error) {
+        lcmMessage.textContent = error.message;
+      }
+    });
+
+    multiplyForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      multiplyResult.classList.remove("visible");
+      try {
+        const first = parseInteger(multiplyInputA.value, "First value");
+        const second = parseInteger(multiplyInputB.value, "Second value");
+        const product = first * second;
+        multiplyAnswer.textContent = product.toString();
+        const calculation = document.createElement("li");
+        calculation.textContent = `${first} × ${second} = ${product}`;
+        multiplySteps.replaceChildren(calculation);
+        multiplyResult.classList.add("visible");
+        multiplyMessage.textContent = "";
+      } catch (error) {
+        multiplyMessage.textContent = error.message;
+      }
+    });
+
     document.querySelector("#clear-button").addEventListener("click", () => {
       inputA.value = "";
       inputB.value = "";
@@ -335,11 +509,43 @@
       inputA.focus();
     });
 
+    document.querySelector("#lcm-clear-button").addEventListener("click", () => {
+      lcmInputA.value = "";
+      lcmInputB.value = "";
+      lcmMessage.textContent = "";
+      lcmResult.classList.remove("visible");
+      lcmInputA.focus();
+    });
+
+    document.querySelector("#multiply-clear-button").addEventListener("click", () => {
+      multiplyInputA.value = "";
+      multiplyInputB.value = "";
+      multiplyMessage.textContent = "";
+      multiplyResult.classList.remove("visible");
+      multiplyInputA.focus();
+    });
+
     document.querySelectorAll("[data-a][data-b]").forEach((button) => {
       button.addEventListener("click", () => {
         inputA.value = button.dataset.a;
         inputB.value = button.dataset.b;
         form.requestSubmit();
+      });
+    });
+
+    document.querySelectorAll("[data-lcm-a][data-lcm-b]").forEach((button) => {
+      button.addEventListener("click", () => {
+        lcmInputA.value = button.dataset.lcmA;
+        lcmInputB.value = button.dataset.lcmB;
+        lcmForm.requestSubmit();
+      });
+    });
+
+    document.querySelectorAll("[data-multiply-a][data-multiply-b]").forEach((button) => {
+      button.addEventListener("click", () => {
+        multiplyInputA.value = button.dataset.multiplyA;
+        multiplyInputB.value = button.dataset.multiplyB;
+        multiplyForm.requestSubmit();
       });
     });
   </script>
